@@ -1,9 +1,6 @@
 name: OIDC Access Test
 
-on:
-  push:
-    paths:
-      - 'trigger-action/*'
+on: push
 
 permissions:
   id-token: write

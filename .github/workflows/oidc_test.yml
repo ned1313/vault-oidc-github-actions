@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: JWT
-      run: "echo $GIT_TOKEN"
+      run: "echo $GITHUB_TOKEN"
 
     - name: Retrieve Secrets
       id: secretdata

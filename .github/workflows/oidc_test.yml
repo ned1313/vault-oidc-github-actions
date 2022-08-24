@@ -14,6 +14,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: JWT
+      run: "echo $GIT_TOKEN"
+
     - name: Retrieve Secrets
       id: secretdata
       uses: hashicorp/vault-action@v2.4.0

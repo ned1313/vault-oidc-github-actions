@@ -1,0 +1,31 @@
+name: OIDC Access Test
+
+on:
+  push:
+    paths:
+      - 'trigger-action/'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  read-secret:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Retrieve Secrets
+      id: secretdata
+      uses: hashicorp/vault-action@2.4.2
+      with: 
+        method: jwt
+        url: ${{ secrets.VAULT_ADDR }}
+        namespace: ${{ secrets.VAULT_NAMESPACE }}
+        role: ${{ secrets.VAULT_ROLE }}
+        secret: ${{ secrets.VAULT_SECRET }} | MY_SECRET
+
+    - name: Print Secrets
+      run: "echo '${{ steps.secretdata.outputs.MY_SECRET }}'"

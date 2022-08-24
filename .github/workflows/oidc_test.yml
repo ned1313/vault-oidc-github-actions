@@ -22,7 +22,7 @@ jobs:
         url: ${{ secrets.VAULT_ADDR }}
         namespace: ${{ secrets.VAULT_NAMESPACE }}
         role: ${{ secrets.VAULT_ROLE }}
-        secrets: taco/data/sauce_recipe pepper | MY_SECRET
+        secrets: taco/sauce_recipe pepper | MY_SECRET
 
     - name: Print Secrets
       run: "echo '${{ steps.secretdata.outputs.MY_SECRET }}'"

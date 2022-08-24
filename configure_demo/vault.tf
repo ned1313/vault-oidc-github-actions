@@ -29,11 +29,7 @@ resource "vault_policy" "taco" {
 
   policy = <<EOT
 path "${vault_kv_secret_v2.taco.path}" {
-  capabilities = ["list"]
-}
-
-path "${vault_kv_secret_v2.taco.path}/*" {
-  capabilities = ["read"]
+  capabilities = ["list","read"]
 }
 EOT
 }
@@ -48,14 +44,13 @@ resource "vault_jwt_auth_backend" "jwt" {
 
 # Create the JWT role tied to the repo
 resource "vault_jwt_auth_backend_role" "example" {
-  backend         = vault_jwt_auth_backend.jwt.path
-  role_name       = "github-actions-role"
-  token_policies  = [vault_policy.taco.name]
-  token_max_ttl   = "100"
-  bound_audiences = ["https://github.com/${var.github_organization}"]
-  bound_claims = {
-    "repository" : "${var.github_organization}/${var.github_repository}"
-  }
-  user_claim = "actor"
-  role_type  = "jwt"
+  backend           = vault_jwt_auth_backend.jwt.path
+  role_name         = "github-actions-role"
+  token_policies    = [vault_policy.taco.name]
+  token_max_ttl     = "100"
+  bound_audiences   = ["https://github.com/${var.github_organization}"]
+  bound_claims_type = "string"
+  bound_subject     = "repo:${var.github_organization}/${var.github_repository}:ref:refs/heads/main"
+  user_claim        = "actor"
+  role_type         = "jwt"
 }

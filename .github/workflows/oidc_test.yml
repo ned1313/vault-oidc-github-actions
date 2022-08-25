@@ -42,10 +42,9 @@ jobs:
         url: ${{ secrets.VAULT_ADDR }}
         namespace: ${{ secrets.VAULT_NAMESPACE }}
         role: ${{ secrets.VAULT_ROLE }}
-        secrets: tacos/data/sauce_recipe pepper | MY_SECRET
+        secrets: ${{ secrets.VAULT_SECRET_PATH }} ${{ secrets.VAULT_SECRET_KEY }} | MY_SECRET
 
     - name: Print Secrets
       run: |
-          echo '${{ steps.secretdata.outputs.MY_SECRET }}' > ./secret.txt
-          cat ./secret.txt
+          echo '${{ steps.secretdata.outputs.MY_SECRET }}'
 

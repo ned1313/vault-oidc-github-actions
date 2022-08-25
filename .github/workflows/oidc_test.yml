@@ -14,6 +14,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    # Shout out to Benjamin Pannell at Sierra Softworks for this
+    # https://sierrasoftworks.com/2021/12/20/vault-github-actions/#policies
     - name: Troubleshooting
       run: |
           curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | \
@@ -38,9 +40,12 @@ jobs:
       with: 
         method: jwt
         url: ${{ secrets.VAULT_ADDR }}
-        namespace: admin
+        namespace: ${{ secrets.VAULT_NAMESPACE }}
         role: ${{ secrets.VAULT_ROLE }}
         secrets: tacos/data/sauce_recipe pepper | MY_SECRET
 
     - name: Print Secrets
-      run: "echo '${{ steps.secretdata.outputs.MY_SECRET }}'"
+      run: |
+          echo '${{ steps.secretdata.outputs.MY_SECRET }}' > ./secret.txt
+          cat ./secret.txt
+

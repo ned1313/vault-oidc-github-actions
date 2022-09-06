@@ -13,3 +13,23 @@ You'll need the following environment variables set:
 You'll also need a Vault server deployed. The Vault server will need a public endpoint, since GitHub Actions will be using a public runner to access it. Don't want to use a public endpoint? Then you'll need to create a self-hosted GitHub Actions runner, which is well beyond the scope of this demo. If your Vault server is not using a publicly signed certificate, you'll also need to include the CA certificate in the GitHub workflow.
 
 The easiest way to get things up and running is to use an HCP Vault instance at the Developer level. Otherwise you'll need to deploy a publicly accessible Vault server on your own, which isn't too hard, but it's more work. I have [a whole video about doing it with Azure Container Instances](https://www.youtube.com/watch?v=-ayAYPqbPtk) and persistent storage with Azure Files, if that's the route you want to take.
+
+### Commands to run against the Vault instance
+
+```bash
+$env:VAULT_TOKEN=""
+$env:VAULT_ADDR=""
+$env:VAULT_NAMESPACE=""
+
+vault status
+vault auth list
+vault read auth/jwt/config
+vault list auth/jwt/role
+vault read auth/jwt/role/github-actions-role
+
+vault policy read github-actions-oidc
+
+vault secrets list
+vault kv list tacos/
+vault kv get tacos/sauce_recipe
+```

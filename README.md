@@ -1,6 +1,6 @@
 # GitHub Actions with Vault OIDC Demonstration
 
-A demonstration of using GitHub OIDC to authenticate to HashiCorp Vault. The files included in this repository accompany the talk I delivered at HashiConf Global 2022. I will include a link to the talk when it comes available.
+A demonstration of using GitHub OIDC to authenticate to HashiCorp Vault. The files included in this repository accompany the talk I delivered at HashiConf Global 2022. You can watch it on [YouTube](https://www.youtube.com/watch?v=lsWOx9bzAwY).
 
 ## What's in this repo?
 
